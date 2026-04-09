@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="slides-format" content="viewport">
+  <title>Vorstellung des Praxisberichts – Max Peter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700;7..72,800&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #fefcf8;
+      --color-bg-deep: #f6f0e8;
+      --color-surface: #efe7dc;
+      --color-text: #1f2937;
+      --color-text-secondary: #475569;
+      --color-text-muted: #64748b;
+      --color-accent-1: #1e293b;
+      --color-accent-2: #c2410c;
+      --color-accent-3: #65713a;
+      --color-glass-bg: rgba(255,255,255,0.78);
+      --color-glass-border: rgba(30,41,59,0.10);
+      --color-vignette: rgba(15,23,42,0.06);
+      --font-display: 'Literata', Georgia, serif;
+      --font-body: 'Source Sans 3', Arial, sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #fefcf8; --color-text: #1f2937; --glow-color-rgb: 194,65,12; --color-glass-bg: rgba(255,255,255,0.78); --color-glass-border: rgba(30,41,59,0.10); }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { background: var(--color-bg); margin: 0; }
+    body { font-family: var(--font-body); color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.95); transition: opacity 0.7s ease, transform 0.7s ease; pointer-events: none; overflow: hidden; }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+    .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1180px; padding: clamp(1.4rem, 3vw, 3.2rem); }
+    .nav-controls { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: var(--color-glass-bg); backdrop-filter: blur(12px); padding: 10px 20px; border-radius: 999px; border: 1px solid var(--color-glass-border); box-shadow: 0 10px 30px rgba(15,23,42,0.08); }
+    .nav-btn { width: 38px; height: 38px; border: none; background: rgba(30,41,59,0.05); color: var(--color-text); border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+    .nav-btn:hover { background: rgba(30,41,59,0.12); }
+    .slide-dots { display: flex; gap: 8px; }
+    .slide-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(30,41,59,0.18); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .slide-dots .dot.active { background: #c2410c; transform: scale(1.25); }
+    .slide-counter { font-size: 0.85rem; color: #64748b; min-width: 48px; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(20px); }
+    .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    @keyframes float-slow { 0% { transform: translate(0,0) scale(1); } 25% { transform: translate(50px,-30px) scale(1.08); } 50% { transform: translate(-35px,25px) scale(0.93); } 75% { transform: translate(45px,15px) scale(1.04); } 100% { transform: translate(0,0) scale(1); } }
+    @keyframes float-drift { 0% { transform: translate(0,0) scale(1) rotate(0deg);} 33% { transform: translate(-35px,-40px) scale(1.12) rotate(3deg);} 66% { transform: translate(30px,25px) scale(0.92) rotate(-2deg);} 100% { transform: translate(0,0) scale(1) rotate(0deg);} }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: float-slow 12s ease-in-out infinite; }
+    .blob:nth-child(2) { animation: float-drift 15s ease-in-out infinite; }
+    .blob:nth-child(3) { animation: float-slow 18s ease-in-out infinite reverse; }
+    .slide::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 256px 256px; opacity: 0.02; mix-blend-mode: multiply; }
+    .slide::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 54%, var(--color-vignette) 100%); }
+    .paper-card { background: rgba(255,255,255,0.84); border: 1px solid rgba(30,41,59,0.10); box-shadow: 0 18px 38px rgba(15,23,42,0.07); border-radius: 24px; }
+    .accent-line { position: absolute; left: 0; top: 22px; bottom: 22px; width: 5px; border-radius: 999px; }
+    .eyebrow { letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.78rem; font-weight: 700; color: #c2410c; }
+    .small-note { font-size: 0.78rem; color: #64748b; }
+    .metric-card { position: relative; overflow: hidden; }
+    .metric-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(194,65,12,0.08), rgba(101,113,58,0.07)); }
+    .metric-card > * { position: relative; z-index: 1; }
+    .check-list li { position: relative; padding-left: 1.4rem; }
+    .check-list li::before { content: '•'; position: absolute; left: 0; top: 0; color: #c2410c; font-weight: 700; }
+    .bar-track { height: 16px; border-radius: 999px; background: rgba(30,41,59,0.10); overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #1e293b, #c2410c, #65713a); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0.55rem; top: 0.4rem; bottom: 0.4rem; width: 2px; background: linear-gradient(to bottom, #c2410c, #65713a); }
+    .timeline-item { position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: -1.78rem; top: 0.35rem; width: 12px; height: 12px; border-radius: 50%; background: #c2410c; box-shadow: 0 0 0 4px rgba(194,65,12,0.12); }
+    .comparison-grid > div { min-height: 148px; }
+    .section-badge { display: inline-flex; align-items: center; gap: 0.55rem; padding: 0.45rem 0.85rem; border-radius: 999px; background: rgba(30,41,59,0.06); border: 1px solid rgba(30,41,59,0.08); font-size: 0.88rem; color: #334155; }
+    .quote-band { border-left: 6px solid #c2410c; background: rgba(255,255,255,0.72); }
+    .slide-1 .hero-emoji, .slide-7 .hero-emoji, .slide-12 .hero-emoji { animation: float 3.4s ease-in-out infinite; }
+    .slide-dark { background: linear-gradient(135deg, #1e293b 0%, #273449 100%); color: #f8fafc; }
+    .slide-dark .eyebrow, .slide-dark .small-note { color: #e2e8f0; }
+    .slide-dark .paper-card { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 18px 40px rgba(0,0,0,0.22); }
+    .slide-dark .section-badge { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.14); color: #e2e8f0; }
+    .slide-dark .bar-track { background: rgba(255,255,255,0.14); }
+    .slide-dark .small-foot { color: rgba(226,232,240,0.8); }
+    .footer-line { position: absolute; bottom: 18px; left: 36px; right: 36px; display: flex; justify-content: space-between; font-size: 0.78rem; color: #64748b; z-index: 3; }
+    .slide-dark .footer-line { color: rgba(226,232,240,0.78); }
+    .table-compact { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; border-radius: 20px; overflow: hidden; border: 1px solid rgba(30,41,59,0.10); box-shadow: 0 16px 34px rgba(15,23,42,0.07); }
+    .table-compact > div { padding: 1rem 1rem; background: rgba(255,255,255,0.82); border-right: 1px solid rgba(30,41,59,0.08); border-bottom: 1px solid rgba(30,41,59,0.08); }
+    .table-compact > div:nth-child(4n) { border-right: none; }
+    .table-head { font-weight: 700; color: #1e293b; background: rgba(246,240,232,0.95) !important; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; } }
+  </style>
+</head>
+<body>
+<div class="mouse-spotlight" style="position:fixed;inset:0;z-index:99;pointer-events:none;"></div>
+<div class="deck">
+
+  <div class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:460px;height:460px;top:-120px;right:-80px;background:#c2410c;opacity:0.12;"></div>
+      <div class="blob" style="width:280px;height:280px;bottom:-70px;left:-60px;background:#65713a;opacity:0.10;"></div>
+      <div class="blob" style="width:220px;height:220px;top:36%;left:18%;background:#1e293b;opacity:0.08;"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;"></canvas>
+    <div class="content text-center">
+      <div class="hero-emoji text-[104px] mb-5 mx-auto reveal">🛡️</div>
+      <p class="eyebrow reveal mb-3">Vorstellung des Praxisberichts · 10. April 2026</p>
+      <h1 class="font-display text-[clamp(2.3rem,5.6vw,4.7rem)] leading-[1.06] font-[800] tracking-tight text-accent-1 reveal">Praxisbericht: Datenschutz &amp; ISMS</h1>
+      <p class="text-[clamp(1.05rem,1.8vw,1.45rem)] text-text-secondary max-w-[920px] mx-auto mt-5 leading-snug reveal">Datenschutz- und Informationssicherheitsaudits im Spannungsfeld von Digitalisierung und Regulierung</p>
+      <div class="flex flex-wrap items-center justify-center gap-3 mt-8 reveal">
+        <span class="section-badge">Max Peter</span>
+        <span class="section-badge">B.Sc. Politik &amp; Technologie</span>
+        <span class="section-badge">HfP / TUM</span>
+        <span class="section-badge">Praxispartner: cironet data security</span>
+      </div>
+    </div>
+    <div class="footer-line"><span>Teams-Präsentation · 15–25 Minuten</span><span>Quelle: Praxisbericht, eigene Darstellung</span></div>
+  </div>
+
+  <div class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:340px;height:340px;top:-80px;right:-70px;background:#1e293b;opacity:0.07;"></div>
+      <div class="blob" style="width:250px;height:250px;bottom:-60px;left:-40px;background:#c2410c;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Struktur</p>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-[800] text-accent-1 reveal">Leitfragen und Aufbau</h2>
+      <div class="grid grid-cols-2 gap-6 mt-8">
+        <div class="paper-card p-7 reveal">
+          <h3 class="font-display text-2xl font-bold text-accent-1 mb-4">Leitfragen</h3>
+          <ul class="space-y-3 text-[1.1rem] leading-snug text-text-secondary check-list">
+            <li>Wie wird die DSGVO in der Praxis wahrgenommen und umgesetzt?</li>
+            <li>Welche Probleme entstehen bei internationalen Datenübermittlungen nach Schrems II?</li>
+            <li>Welche Rolle spielen Pseudonymisierung und Verschlüsselung im praktischen Datenschutz?</li>
+          </ul>
+        </div>
+        <div class="paper-card p-7 reveal">
+          <h3 class="font-display text-2xl font-bold text-accent-1 mb-4">Ablauf der Präsentation</h3>
+          <div class="grid grid-cols-2 gap-4 text-[1.02rem] text-text-secondary">
+            <div class="rounded-2xl bg-bg-deep p-4"><span class="text-accent-2 font-bold">1</span><br>Praxisrahmen und Aufgabenprofil</div>
+            <div class="rounded-2xl bg-bg-deep p-4"><span class="text-accent-2 font-bold">2</span><br>Fallstudie ICO AG</div>
+            <div class="rounded-2xl bg-bg-deep p-4"><span class="text-accent-2 font-bold">3</span><br>Fallstudie Partei dieBasis</div>
+            <div class="rounded-2xl bg-bg-deep p-4"><span class="text-accent-2 font-bold">4</span><br>Reflexion, Transfer, Diskussion</div>
+          </div>
+          <p class="small-note mt-4">Ziel: kurze Berichtsvorstellung, Schwerpunkt auf wesentlichen Erfahrungen aus beiden Projekten.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line"><span>2 / 12</span><span>Quelle: Praxisbericht, S. 1–2</span></div>
+  </div>
+
+  <div class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:360px;height:360px;top:-100px;left:-80px;background:#65713a;opacity:0.08;"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-40px;right:-20px;background:#c2410c;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Praxisrahmen</p>
+      <h2 class="font-display text-[clamp(1.95rem,4vw,2.95rem)] font-[800] text-accent-1 reveal">Rolle, Aufgaben und institutioneller Kontext</h2>
+      <div class="grid grid-cols-4 gap-5 mt-7">
+        <div class="paper-card metric-card p-5 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Praxiszeitraum</p>
+          <div class="text-4xl font-bold text-accent-1 mt-3"><span data-count="18">18</span> Monate</div>
+          <p class="mt-2 text-text-secondary">01.07.2021 bis 31.12.2022</p>
+        </div>
+        <div class="paper-card metric-card p-5 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Hauptprojekte</p>
+          <div class="text-4xl font-bold text-accent-1 mt-3"><span data-count="2">2</span></div>
+          <p class="mt-2 text-text-secondary">ICO AG und Partei dieBasis</p>
+        </div>
+        <div class="paper-card metric-card p-5 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Dokumentation</p>
+          <div class="text-4xl font-bold text-accent-1 mt-3"><span data-count="227">227</span> S.</div>
+          <p class="mt-2 text-text-secondary">ICO-AG-Datenschutzdokumentation</p>
+        </div>
+        <div class="paper-card metric-card p-5 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Konzept</p>
+          <div class="text-4xl font-bold text-accent-1 mt-3"><span data-count="35">35</span> S.</div>
+          <p class="mt-2 text-text-secondary">Datenschutz- und IT-Sicherheitskonzept</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-[1.15fr_0.85fr] gap-6 mt-6">
+        <div class="paper-card p-6 reveal relative overflow-hidden">
+          <div class="accent-line" style="background:linear-gradient(to bottom,#c2410c,#65713a);"></div>
+          <div class="pl-5">
+            <h3 class="font-display text-2xl font-bold text-accent-1 mb-3">Aufgabenprofil</h3>
+            <p class="text-[1.08rem] leading-snug text-text-secondary">Datenschutz-Audits, Analyse von Datenverarbeitungsprozessen, Verzeichnisse von Verarbeitungstätigkeiten, Bewertung technisch-organisatorischer Maßnahmen, Unterstützung bei DSFA sowie Beratung zu ISMS nach ISO/IEC 27001 und CISIS12.</p>
+          </div>
+        </div>
+        <div class="paper-card p-6 reveal">
+          <h3 class="font-display text-2xl font-bold text-accent-1 mb-3">Leitidee</h3>
+          <p class="text-[1.08rem] leading-snug text-text-secondary">Datenschutzarbeit ist in der Praxis nie rein juristisch. Entscheidend ist die gleichzeitige Betrachtung von Recht, Technik und Organisation.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line"><span>3 / 12</span><span>Quelle: Praxisbericht, S. 2–4</span></div>
+  </div>
+
+  <div class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-90px;right:-60px;background:#c2410c;opacity:0.08;"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-50px;left:-40px;background:#1e293b;opacity:0.07;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Fallstudie I</p>
+      <h2 class="font-display text-[clamp(1.95rem,4vw,2.95rem)] font-[800] text-accent-1 reveal">ICO AG: Datenschutz in einer technologieintensiven Infrastruktur</h2>
+      <div class="grid grid-cols-[1fr_1fr] gap-6 mt-7">
+        <div class="paper-card p-7 reveal">
+          <h3 class="font-display text-2xl font-bold text-accent-1 mb-4">Technologisches Profil</h3>
+          <ul class="space-y-3 text-[1.08rem] text-text-secondary check-list leading-snug">
+            <li>Digitale Plattform für Online-Prüfungen und verifizierbare Zertifikate.</li>
+            <li>Cloud-basierte Architektur auf Microsoft Azure, inkl. Datenbank, Storage und Web Apps.</li>
+            <li>Biometrische Authentifizierung über Azure Face API.</li>
+            <li>Blockchain-basierte Zertifikatsverifizierung durch kryptographische Hash-Werte.</li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="paper-card p-5 reveal"><p class="text-sm uppercase tracking-[0.12em] text-text-muted mb-1">Datenschutzliche Relevanz</p><h4 class="font-display text-xl font-bold text-accent-1">Art. 9 DSGVO</h4><p class="text-text-secondary mt-2">Biometrische Daten als besondere Kategorie personenbezogener Daten.</p></div>
+          <div class="paper-card p-5 reveal"><p class="text-sm uppercase tracking-[0.12em] text-text-muted mb-1">Governance-Aufgabe</p><h4 class="font-display text-xl font-bold text-accent-1">Transparenz &amp; Speicherbegrenzung</h4><p class="text-text-secondary mt-2">Datenschutzerklärung, Löschfristen und präzise Dokumentation als Kern der Compliance.</p></div>
+          <div class="paper-card p-5 reveal"><p class="text-sm uppercase tracking-[0.12em] text-text-muted mb-1">Rolle</p><h4 class="font-display text-xl font-bold text-accent-1">Externer Datenschutzbeauftragter</h4><p class="text-text-secondary mt-2">Aufbau und laufende Pflege einer vollständigen Datenschutzdokumentation.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line"><span>4 / 12</span><span>Quelle: Praxisbericht, S. 4–5</span></div>
+  </div>
+
+  <div class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-100px;left:-60px;background:#65713a;opacity:0.08;"></div>
+      <div class="blob" style="width:260px;height:260px;bottom:-60px;right:-40px;background:#c2410c;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Fallstudie I</p>
+      <h2 class="font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-[800] text-accent-1 reveal">ICO AG: Lösungen für Datenschutz, Technik und Transferkontrolle</h2>
+      <div class="grid grid-cols-3 gap-5 mt-7">
+        <div class="paper-card p-6 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Pseudonymisierung</p>
+          <div class="text-3xl font-bold text-accent-1 mt-2">SHA256-Templates</div>
+          <p class="text-text-secondary mt-3">Gesichtsbilder wurden in kryptographische Templates umgewandelt; Originalbilder wurden nicht dauerhaft gespeichert.</p>
+        </div>
+        <div class="paper-card p-6 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Speicherbegrenzung</p>
+          <div class="text-3xl font-bold text-accent-1 mt-2"><span data-count="180">180</span> Tage</div>
+          <p class="text-text-secondary mt-3">Sitzungsdaten wurden nach 180 Tagen pseudonymisiert; gespeichert blieben nur für die Verifizierung notwendige Daten.</p>
+        </div>
+        <div class="paper-card p-6 reveal">
+          <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Drittstaatentransfers</p>
+          <div class="text-3xl font-bold text-accent-1 mt-2">SCC 2021 + TIA</div>
+          <p class="text-text-secondary mt-3">Transfer Impact Assessments, neue EU-Standardvertragsklauseln und EU/EWR-Datenlokalisierung, wo möglich.</p>
+        </div>
+      </div>
+      <div class="paper-card p-6 mt-6 reveal">
+        <div class="grid grid-cols-[180px_1fr_80px] items-center gap-4 mb-4">
+          <div class="font-semibold text-accent-1">Verschlüsselung</div>
+          <div class="bar-track"><div class="bar-fill" data-width="92%" style="width:92%"></div></div>
+          <div class="text-right text-text-secondary">TLS / at rest</div>
+        </div>
+        <div class="grid grid-cols-[180px_1fr_80px] items-center gap-4 mb-4">
+          <div class="font-semibold text-accent-1">Zugriffskontrollen</div>
+          <div class="bar-track"><div class="bar-fill" data-width="86%" style="width:86%"></div></div>
+          <div class="text-right text-text-secondary">RBAC / MFA</div>
+        </div>
+        <div class="grid grid-cols-[180px_1fr_80px] items-center gap-4">
+          <div class="font-semibold text-accent-1">Dokumentation</div>
+          <div class="bar-track"><div class="bar-fill" data-width="96%" style="width:96%"></div></div>
+          <div class="text-right text-text-secondary">227 Seiten</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line"><span>5 / 12</span><span>Quelle: Praxisbericht, S. 5–7</span></div>
+  </div>
+
+  <div class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:340px;height:340px;top:-90px;right:-60px;background:#1e293b;opacity:0.08;"></div>
+      <div class="blob" style="width:250px;height:250px;bottom:-45px;left:-45px;background:#65713a;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Zwischenfazit</p>
+      <h2 class="font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-[800] text-accent-1 reveal">Was die ICO-AG-Fallstudie besonders deutlich macht</h2>
+      <div class="grid grid-cols-3 gap-5 mt-8">
+        <div class="paper-card p-6 reveal h-full">
+          <div class="text-5xl mb-4">⚖️</div>
+          <h3 class="font-display text-2xl font-bold text-accent-1">Rechtsgrundlagen reichen nicht allein</h3>
+          <p class="text-text-secondary mt-3">Gerade bei biometrischen Daten entscheidet die belastbare technische und organisatorische Ausgestaltung über die praktische Tragfähigkeit.</p>
+        </div>
+        <div class="paper-card p-6 reveal h-full">
+          <div class="text-5xl mb-4">☁️</div>
+          <h3 class="font-display text-2xl font-bold text-accent-1">Schrems II bleibt ein Strukturproblem</h3>
+          <p class="text-text-secondary mt-3">Cloud-Infrastrukturen sind funktional oft unverzichtbar, rechtlich aber nur unter hohem Dokumentations- und Prüfungsaufwand vertretbar.</p>
+        </div>
+        <div class="paper-card p-6 reveal h-full">
+          <div class="text-5xl mb-4">🔐</div>
+          <h3 class="font-display text-2xl font-bold text-accent-1">Technik reduziert Risiken</h3>
+          <p class="text-text-secondary mt-3">Pseudonymisierung und Verschlüsselung sind wirksam, ersetzen aber kein Gesamtkonzept aus Governance, Löschregeln und Zugriffskontrolle.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line"><span>6 / 12</span><span>Quelle: Praxisbericht, S. 6, 11–13</span></div>
+  </div>
+
+  <div class="slide slide-7 slide-dark" data-slide="7">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:460px;height:460px;top:-120px;right:-90px;background:#c2410c;opacity:0.16;"></div>
+      <div class="blob" style="width:300px;height:300px;bottom:-90px;left:-70px;background:#65713a;opacity:0.14;"></div>
+      <div class="blob" style="width:230px;height:230px;top:42%;left:16%;background:#ffffff;opacity:0.06;"></div>
+    </div>
+    <canvas class="particle-canvas-ambient" style="position:absolute;inset:0;z-index:1;"></canvas>
+    <div class="content text-center">
+      <div class="hero-emoji text-[96px] mb-4 reveal">🏛️</div>
+      <p class="eyebrow reveal mb-3">Fallstudie II</p>
+      <h2 class="font-display text-[clamp(2rem,5vw,4rem)] font-[800] tracking-tight reveal">Partei dieBasis</h2>
+      <p class="text-[clamp(1.05rem,1.7vw,1.35rem)] text-slate-200 max-w-[850px] mx-auto mt-4 leading-snug reveal">Datenschutz und IT-Sicherheit im politischen Kontext: föderale Strukturen, Sicherheitsvorfälle und organisationaler Reifegrad</p>
+      <div class="grid grid-cols-3 gap-4 mt-9 max-w-[980px] mx-auto">
+        <div class="paper-card p-5 reveal"><p class="text-sm uppercase tracking-[0.12em] text-slate-300">Mandat</p><div class="text-3xl font-bold mt-2">09/2021–12/2022</div><p class="mt-2 text-slate-200">ehrenamtlicher externer Bundesdatenschutzbeauftragter</p></div>
+        <div class="paper-card p-5 reveal"><p class="text-sm uppercase tracking-[0.12em] text-slate-300">Sicherheitsvorfall</p><div class="text-3xl font-bold mt-2">bis zu <span data-count="10000">10000</span></div><p class="mt-2 text-slate-200">betroffene Mitgliederdatensätze im MVS</p></div>
+        <div class="paper-card p-5 reveal"><p class="text-sm uppercase tracking-[0.12em] text-slate-300">Strukturproblem</p><div class="text-3xl font-bold mt-2">dezentral</div><p class="mt-2 text-slate-200">föderale Organisation mit langen Abstimmungswegen</p></div>
+      </div>
+    </div>
+    <div class="footer-line"><span>7 / 12</span><span>Quelle: Praxisbericht, S. 7–8</span></div>
+  </div>
+
+  <div class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:330px;height:330px;top:-90px;left:-60px;background:#c2410c;opacity:0.08;"></div>
+      <div class="blob" style="width:250px;height:250px;bottom:-50px;right:-30px;background:#1e293b;opacity:0.07;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Fallstudie II</p>
+      <h2 class="font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-[800] text-accent-1 reveal">Incident Response und Einführung eines ISMS</h2>
+      <div class="grid grid-cols-[0.92fr_1.08fr] gap-6 mt-7">
+        <div class="paper-card p-6 reveal">
+          <h3 class="font-display text-2xl font-bold text-accent-1 mb-4">Ausgangslage</h3>
+          <ul class="space-y-3 text-[1.04rem] text-text-secondary check-list leading-snug">
+            <li>Fehlende IT-Leitlinien und kein belastbares Sicherheitskonzept.</li>
+            <li>Keine Netzwerk-Segmentierung, gemeinsame privilegierte Zugänge.</li>
+            <li>Unverschlüsselte Kommunikation, unzureichendes Backup-Konzept, fehlende Redundanz.</li>
+            <li>Sicherheitsvorfälle mit möglicher Meldepflicht nach Art. 33 DSGVO.</li>
+          </ul>
+        </div>
+        <div class="paper-card p-6 reveal">
+          <h3 class="font-display text-2xl font-bold text-accent-1 mb-4">Maßnahmenplan</h3>
+          <div class="timeline space-y-5">
+            <div class="timeline-item">
+              <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Sofort · Sep–Okt 2021</p>
+              <p class="text-text-secondary">Passwortrücksetzung, Rechteentzug, Firewall-Aktivierung, Verschlüsselung kritischer Dienste.</p>
+            </div>
+            <div class="timeline-item">
+              <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Mittelfristig · Nov 2021–Jun 2022</p>
+              <p class="text-text-secondary">Neue Infrastruktur, Segmentierung, individuelle Zugänge, Backup-Konzept, IT-Richtlinien.</p>
+            </div>
+            <div class="timeline-item">
+              <p class="text-sm uppercase tracking-[0.12em] text-text-muted">Strategisch · Jun 2022</p>
+              <p class="text-text-secondary">35-seitiges Datenschutz- und IT-Sicherheitskonzept, Rollenmodell, VVT, TOMs und CISIS12-Einführungsstrategie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-line"><span>8 / 12</span><span>Quelle: Praxisbericht, S. 8–10</span></div>
+  </div>
+
+  <div class="slide slide-9" data-slide="9">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:340px;height:340px;top:-90px;right:-60px;background:#65713a;opacity:0.08;"></div>
+      <div class="blob" style="width:250px;height:250px;bottom:-50px;left:-30px;background:#c2410c;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Vergleich</p>
+      <h2 class="font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-[800] text-accent-1 reveal">Zwei Projekte, ein gemeinsames Governance-Problem</h2>
+      <div class="table-compact mt-7 reveal text-[0.97rem] leading-snug">
+        <div class="table-head">Dimension</div>
+        <div class="table-head">ICO AG</div>
+        <div class="table-head">Partei dieBasis</div>
+        <div class="table-head">Gemeinsame Einsicht</div>
+
+        <div class="font-semibold text-accent-1">Organisationstyp</div>
+        <div>Technologieorientiertes Zertifizierungsunternehmen</div>
+        <div>Politische Organisation mit föderaler Struktur</div>
+        <div>Rahmenbedingungen prägen die Umsetzungstiefe.</div>
+
+        <div class="font-semibold text-accent-1">Hauptproblem</div>
+        <div>Biometrie, Cloud, Drittstaatentransfers</div>
+        <div>Vorfälle, Governance-Lücken, Ressourcenknappheit</div>
+        <div>Datenschutz ist nie nur Rechtsanwendung.</div>
+
+        <div class="font-semibold text-accent-1">Schlüsselantwort</div>
+        <div>Pseudonymisierung, Verschlüsselung, TIA, SCC, TOMs</div>
+        <div>Incident Response, Rollenklärung, ISMS, CISIS12</div>
+        <div>Technik braucht Struktur und Dokumentation.</div>
+
+        <div class="font-semibold text-accent-1">Lernpunkt</div>
+        <div>Innovationsnähe erhöht den Prüfungsaufwand.</div>
+        <div>Organisationale Reife entscheidet über Wirksamkeit.</div>
+        <div>Recht, Technik und Organisation müssen zusammen gedacht werden.</div>
+      </div>
+    </div>
+    <div class="footer-line"><span>9 / 12</span><span>Quelle: Praxisbericht, S. 4–14</span></div>
+  </div>
+
+  <div class="slide slide-10" data-slide="10">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:360px;height:360px;top:-100px;left:-70px;background:#1e293b;opacity:0.07;"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-45px;right:-35px;background:#c2410c;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Reflexion</p>
+      <h2 class="font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-[800] text-accent-1 reveal">Vier zentrale Erkenntnisse des Praxisberichts</h2>
+      <div class="grid grid-cols-2 gap-5 mt-7">
+        <div class="paper-card p-6 reveal relative overflow-hidden"><div class="accent-line" style="background:#c2410c"></div><div class="pl-5"><h3 class="font-display text-2xl font-bold text-accent-1">1. DSGVO als Governance-Instrument</h3><p class="text-text-secondary mt-3">Die DSGVO wird zwar als Compliance-Belastung erlebt, professionalisiert aber Datenmanagement, Löschkonzepte, Zugriffskontrollen und Betroffenenprozesse.</p></div></div>
+        <div class="paper-card p-6 reveal relative overflow-hidden"><div class="accent-line" style="background:#65713a"></div><div class="pl-5"><h3 class="font-display text-2xl font-bold text-accent-1">2. Drittstaatentransfers bleiben prekär</h3><p class="text-text-secondary mt-3">Schrems II erzeugt anhaltende Rechtsunsicherheit, während funktionale Abhängigkeiten von globalen Cloud-Anbietern fortbestehen.</p></div></div>
+        <div class="paper-card p-6 reveal relative overflow-hidden"><div class="accent-line" style="background:#1e293b"></div><div class="pl-5"><h3 class="font-display text-2xl font-bold text-accent-1">3. Technische Maßnahmen haben Grenzen</h3><p class="text-text-secondary mt-3">Pseudonymisierung und Verschlüsselung reduzieren Risiken wirksam, eliminieren sie aber nicht und müssen in ein Gesamtkonzept eingebettet sein.</p></div></div>
+        <div class="paper-card p-6 reveal relative overflow-hidden"><div class="accent-line" style="background:#c2410c"></div><div class="pl-5"><h3 class="font-display text-2xl font-bold text-accent-1">4. Interdisziplinarität ist entscheidend</h3><p class="text-text-secondary mt-3">Erfolgreiche Datenschutzarbeit verlangt ein T-förmiges Kompetenzprofil zwischen Recht, Technik und Organisation.</p></div></div>
+      </div>
+    </div>
+    <div class="footer-line"><span>10 / 12</span><span>Quelle: Praxisbericht, S. 10–15</span></div>
+  </div>
+
+  <div class="slide slide-11" data-slide="11">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:330px;height:330px;top:-90px;right:-60px;background:#c2410c;opacity:0.08;"></div>
+      <div class="blob" style="width:240px;height:240px;bottom:-45px;left:-35px;background:#65713a;opacity:0.08;"></div>
+    </div>
+    <div class="content">
+      <p class="eyebrow reveal mb-3">Transfer</p>
+      <h2 class="font-display text-[clamp(1.9rem,3.8vw,2.85rem)] font-[800] text-accent-1 reveal">Verbindung zwischen Studium und Praxis</h2>
+      <div class="grid grid-cols-4 gap-5 mt-7">
+        <div class="paper-card p-5 reveal"><div class="text-4xl mb-3">🏛️</div><h3 class="font-display text-xl font-bold text-accent-1">Governance-Theorie</h3><p class="text-text-secondary mt-2">DSGVO als Instrument der „Governance by Regulation“ verstehen und praktisch umsetzen.</p></div>
+        <div class="paper-card p-5 reveal"><div class="text-4xl mb-3">🧠</div><h3 class="font-display text-xl font-bold text-accent-1">Technologiebewertung</h3><p class="text-text-secondary mt-2">Cloud, Blockchain und biometrische Authentifizierung hinsichtlich datenschutzrechtlicher Implikationen analysieren.</p></div>
+        <div class="paper-card p-5 reveal"><div class="text-4xl mb-3">🏗️</div><h3 class="font-display text-xl font-bold text-accent-1">Institutionenanalyse</h3><p class="text-text-secondary mt-2">Unterschiedliche Organisationsformen und ihre Fähigkeit zur Compliance vergleichen.</p></div>
+        <div class="paper-card p-5 reveal"><div class="text-4xl mb-3">📊</div><h3 class="font-display text-xl font-bold text-accent-1">Policy-Analyse</h3><p class="text-text-secondary mt-2">Wirkung regulatorischer Instrumente im organisationalen Alltag untersuchen.</p></div>
+      </div>
+      <div class="quote-band rounded-3xl p-6 mt-6 reveal">
+        <p class="font-display text-2xl text-accent-1 font-bold">Kern des Lernertrags</p>
+        <p class="text-[1.12rem] text-text-secondary mt-2 leading-snug">Die Praxis schärft den Blick auf die Frage, wie rechtliche Normen tatsächlich wirken, welche Faktoren Implementierung hemmen und wie digitale Souveränität institutionell hergestellt werden kann.</p>
+      </div>
+    </div>
+    <div class="footer-line"><span>11 / 12</span><span>Quelle: Praxisbericht, S. 12–15</span></div>
+  </div>
+
+  <div class="slide slide-12 slide-dark" data-slide="12">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:470px;height:470px;top:-120px;right:-90px;background:#c2410c;opacity:0.16;"></div>
+      <div class="blob" style="width:320px;height:320px;bottom:-90px;left:-80px;background:#65713a;opacity:0.14;"></div>
+      <div class="blob" style="width:220px;height:220px;top:40%;left:18%;background:#ffffff;opacity:0.05;"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1;"></canvas>
+    <div class="content text-center">
+      <div class="hero-emoji text-[92px] mb-4 reveal">📚</div>
+      <p class="eyebrow reveal mb-3">Schluss</p>
+      <h2 class="font-display text-[clamp(2.2rem,5vw,4.3rem)] font-[800] tracking-tight reveal">Vielen Dank</h2>
+      <p class="text-[clamp(1.05rem,1.8vw,1.4rem)] text-slate-200 max-w-[840px] mx-auto mt-4 leading-snug reveal">Datenschutz und Informationssicherheit erweisen sich als Fragen verantwortlicher digitaler Governance — rechtlich, technisch und organisatorisch zugleich.</p>
+      <div class="grid grid-cols-3 gap-5 mt-9 max-w-[1020px] mx-auto">
+        <div class="paper-card p-5 reveal"><p class="font-display text-xl font-bold">Interdisziplinär</p><p class="mt-2 text-slate-200">Recht, Technik und Organisation müssen zusammengeführt werden.</p></div>
+        <div class="paper-card p-5 reveal"><p class="font-display text-xl font-bold">Praxisorientiert</p><p class="mt-2 text-slate-200">Wirksamkeit zeigt sich in Prozessen, Rollen und Infrastruktur.</p></div>
+        <div class="paper-card p-5 reveal"><p class="font-display text-xl font-bold">Reflexiv</p><p class="mt-2 text-slate-200">Der Bericht verbindet Erfahrungswissen mit theoretischer Analyse.</p></div>
+      </div>
+      <p class="text-[1rem] uppercase tracking-[0.16em] mt-10 text-slate-300 reveal">Diskussion</p>
+    </div>
+    <div class="footer-line"><span>12 / 12</span><span>Quelle: Praxisbericht, eigene Darstellung</span></div>
+  </div>
+
+</div>
+<div class="nav-controls" aria-label="Foliennavigation">
+  <button class="nav-btn" aria-label="Vorherige Folie" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" aria-label="Nächste Folie" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 12</span>
+</div>
+<script>
+  let current = 1;
+  const total = document.querySelectorAll('.slide').length;
+  const dotsContainer = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+  function goToSlide(n) {
+    const prev = document.querySelector('.slide.active');
+    const next = document.querySelector(`.slide[data-slide="${n}"]`);
+    if (prev) prev.classList.remove('active');
+    if (next) { next.classList.add('active'); animateSlide(next); }
+    current = n; updateNav();
+  }
+  function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+  function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current)); counter.textContent = current + ' / ' + total; }
+  document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+  function animateSlide(slide) {
+    slide.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transition = 'none';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.offsetHeight;
+      const delay = i * 0.07;
+      el.style.transition = `opacity 0.35s ease ${delay}s, transform 0.35s ease ${delay}s`;
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0px)';
+    });
+    animateSlideEffects(slide);
+  }
+  function animateSlideEffects(slide) {
+    slide.querySelectorAll('[data-count]:not(.counted)').forEach(el => {
+      el.classList.add('counted');
+      const target = parseInt(el.dataset.count);
+      let cur = 0; const step = target / 40;
+      const timer = setInterval(() => { cur += step; if (cur >= target) { cur = target; clearInterval(timer); } el.textContent = Math.round(cur).toLocaleString('de-DE'); }, 28);
+    });
+    slide.querySelectorAll('.bar-fill:not(.fill-init)').forEach((bar, i) => {
+      bar.classList.add('fill-init');
+      const target = bar.dataset.width || bar.style.width;
+      const normalized = /%$/.test(String(target).trim()) ? String(target).trim() : `${String(target).trim()}%`;
+      bar.style.width = '0%';
+      bar.style.transition = `width 0.55s ease ${i * 0.08}s`;
+      bar.offsetHeight;
+      bar.style.width = normalized;
+    });
+  }
+  document.addEventListener('mousemove', (e) => {
+    const spotlight = document.querySelector('.mouse-spotlight');
+    if (spotlight) {
+      const rgb = getComputedStyle(document.documentElement).getPropertyValue('--glow-color-rgb').trim() || '194,65,12';
+      spotlight.style.background = `radial-gradient(540px circle at ${e.clientX}px ${e.clientY}px, rgba(${rgb}, 0.05), transparent 42%)`;
+    }
+  });
+  window.initParticles = function(canvas, options) {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+    const interactive = options.interactive !== false;
+    const count = options.count || (interactive ? 40 : 16);
+    let mx = -1000, my = -1000;
+    const rgb = getComputedStyle(document.documentElement).getPropertyValue('--glow-color-rgb').trim() || '194,65,12';
+    const [r, g, b] = rgb.split(',').map(Number);
+    const particles = Array.from({ length: count }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25, size: Math.random() * 2 + 0.8, alpha: Math.random() * 0.28 + 0.08 }));
+    if (interactive) {
+      canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; });
+      canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; });
+    }
+    (function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        if (interactive) {
+          const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 120 && dist > 0) { const force = (120 - dist) / 120 * 1.8; p.vx += (dx / dist) * force * 0.08; p.vy += (dy / dist) * force * 0.08; }
+        }
+        p.vx *= 0.985; p.vy *= 0.985; p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`; ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    })();
+  };
+  document.querySelectorAll('.particle-canvas').forEach(c => window.initParticles(c, { interactive: true, count: 40 }));
+  document.querySelectorAll('.particle-canvas-ambient').forEach(c => window.initParticles(c, { interactive: false, count: 16 }));
+  try { animateSlide(document.querySelector('.slide.active')); } catch(e) { console.warn(e); }
+</script>
+</body>
+</html>
